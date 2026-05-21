@@ -1,3 +1,7 @@
+"use client";
+
+import { Reveal, RevealGroup, RevealItem } from "./motion/Reveal";
+
 type TierProps = {
   badge?: string;
   label: string;
@@ -10,7 +14,7 @@ type TierProps = {
 
 function Tier({ badge, label, price, cadence, description, ctaLabel, ctaHref }: TierProps) {
   return (
-    <div className="relative bg-[var(--color-carbon)] border border-[var(--color-steel)]/40 p-8 md:p-10 hover:border-[var(--color-amber)]/60 hover:shadow-[0_0_40px_-12px_rgba(244,160,36,0.3)] transition-all duration-300 flex flex-col">
+    <div className="relative bg-[var(--color-carbon)] border border-[var(--color-steel)]/40 p-8 md:p-10 hover:border-[var(--color-amber)]/60 hover:shadow-[0_0_40px_-12px_rgba(244,160,36,0.35)] hover:-translate-y-1 transition-all duration-500 flex flex-col h-full">
       {badge && (
         <div className="absolute -top-3 right-6 bg-[var(--color-amber)] text-[var(--color-canvas)] px-3 py-1 font-bold text-[10px] tracking-[0.22em]">
           {badge}
@@ -30,7 +34,7 @@ function Tier({ badge, label, price, cadence, description, ctaLabel, ctaHref }: 
       </p>
       <a
         href={ctaHref}
-        className="inline-flex items-center justify-between gap-3 px-6 py-3.5 border-[1.5px] border-[var(--color-amber)] text-[var(--color-amber)] font-bold text-[12px] tracking-[0.22em] hover:bg-[var(--color-amber)] hover:text-[var(--color-canvas)] transition-all duration-250"
+        className="inline-flex items-center justify-between gap-3 px-6 py-3.5 border-[1.5px] border-[var(--color-amber)] text-[var(--color-amber)] font-bold text-[12px] tracking-[0.22em] hover:bg-[var(--color-amber)] hover:text-[var(--color-canvas)] transition-all duration-300"
       >
         {ctaLabel} <span className="text-[16px]">→</span>
       </a>
@@ -40,53 +44,67 @@ function Tier({ badge, label, price, cadence, description, ctaLabel, ctaHref }: 
 
 export function Membership() {
   return (
-    <section id="membership" className="relative bg-[var(--color-canvas)] z-40 overflow-hidden min-h-[80vh] py-24 md:py-32">
+    <section id="membership" className="relative bg-[var(--color-canvas)] z-40 overflow-hidden min-h-[80vh] py-32 md:py-48">
       <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12">
-        <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-6">
-          004 / MEMBERSHIP
-        </div>
-        <h2 className="font-extrabold text-[40px] md:text-[64px] lg:text-[80px] leading-[1.02] tracking-[-0.025em] text-[var(--color-off-white)] mb-6">
-          Two ways in. <span className="text-[var(--color-amber)]">Both stations included.</span>
-        </h2>
-        <p className="font-light text-[16px] md:text-[18px] text-[var(--color-off-white)]/65 max-w-[640px] mb-16 md:mb-20 leading-[1.55]">
-          One membership covers both Hesperia and La Verne. 24-hour access. Staffed every hour.
-        </p>
+        <Reveal>
+          <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-6">
+            004 / MEMBERSHIP
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="font-extrabold text-[40px] md:text-[64px] lg:text-[80px] leading-[1.02] tracking-[-0.025em] text-[var(--color-off-white)] mb-6">
+            Two ways in. <span className="text-[var(--color-amber)]">Both stations included.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="font-light text-[16px] md:text-[18px] text-[var(--color-off-white)]/65 max-w-[640px] mb-16 md:mb-20 leading-[1.55]">
+            One membership covers both Hesperia and La Verne. 24-hour access. Staffed every hour.
+          </p>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-          <Tier
-            label="STANDARD"
-            price="$30.99"
-            cadence="PER MONTH · 1-YEAR CONTRACT"
-            description="Full 24/7 access at both stations. Best monthly rate. Annual commitment."
-            ctaLabel="JOIN STANDARD"
-            ctaHref="#the-pass"
-          />
-          <Tier
-            badge="MOST FLEXIBLE"
-            label="MONTH-TO-MONTH"
-            price="$35.99"
-            cadence="PER MONTH · NO CONTRACT"
-            description="Same 24/7 access at both stations. Cancel any time. No commitment."
-            ctaLabel="JOIN FLEXIBLE"
-            ctaHref="#the-pass"
-          />
-          <Tier
-            label="PERSONAL TRAINING"
-            price="Custom"
-            cadence="1-ON-1 · BY SESSION"
-            description="Programmed for your goal. Coached by certified trainers. Call for rates."
-            ctaLabel="INQUIRE"
-            ctaHref="tel:+17609953137"
-          />
-        </div>
+        <RevealGroup stagger={0.15} className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <RevealItem y={48}>
+            <Tier
+              label="STANDARD"
+              price="$30.99"
+              cadence="PER MONTH · 1-YEAR CONTRACT"
+              description="Full 24/7 access at both stations. Best monthly rate. Annual commitment."
+              ctaLabel="JOIN STANDARD"
+              ctaHref="#the-pass"
+            />
+          </RevealItem>
+          <RevealItem y={48}>
+            <Tier
+              badge="MOST FLEXIBLE"
+              label="MONTH-TO-MONTH"
+              price="$35.99"
+              cadence="PER MONTH · NO CONTRACT"
+              description="Same 24/7 access at both stations. Cancel any time. No commitment."
+              ctaLabel="JOIN FLEXIBLE"
+              ctaHref="#the-pass"
+            />
+          </RevealItem>
+          <RevealItem y={48}>
+            <Tier
+              label="PERSONAL TRAINING"
+              price="Custom"
+              cadence="1-ON-1 · BY SESSION"
+              description="Programmed for your goal. Coached by certified trainers. Call for rates."
+              ctaLabel="INQUIRE"
+              ctaHref="tel:+17609953137"
+            />
+          </RevealItem>
+        </RevealGroup>
 
-        <p className="text-center text-[var(--color-off-white)]/50 font-light text-[13px] mt-12">
-          Day, week, and month drop-in passes available — call{" "}
-          <a href="tel:+17609953137" className="text-[var(--color-amber)] hover:underline">
-            (760) 995-3137
-          </a>{" "}
-          for rates.
-        </p>
+        <Reveal delay={0.6}>
+          <p className="text-center text-[var(--color-off-white)]/50 font-light text-[13px] mt-12">
+            Day, week, and month drop-in passes available — call{" "}
+            <a href="tel:+17609953137" className="text-[var(--color-amber)] hover:underline">
+              (760) 995-3137
+            </a>{" "}
+            for rates.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
