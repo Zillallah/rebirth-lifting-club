@@ -1,10 +1,12 @@
 import Hero from "@/components/sections/Hero";
+import Manifesto from "@/components/sections/Manifesto";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      {/* Batch 2 onward: Manifesto, The Marine, Membership, Inside the Club, Two Clubs, Trial, Reviews, FAQ, Footer */}
+      <Manifesto />
+      {/* Batch 3 onward: The Marine, Membership, Inside the Club, Two Clubs, Trial, Reviews, FAQ, Footer */}
     </main>
   );
 }
