@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# hero video source — encode locally, commit only hero.mp4/webm/poster
+/public/hero-source.mp4
