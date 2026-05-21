@@ -1,27 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Fraunces, JetBrains_Mono } from "next/font/google";
-import Nav from "@/components/Nav";
+import { Outfit, Geist_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  // Variable italic — axes mode requires weight:"variable"; 900 selected per-element via CSS font-weight.
-  weight: "variable",
-  style: ["italic"],
-  axes: ["opsz", "SOFT", "WONK"],
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -42,10 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${fraunces.variable} ${jetbrains.variable} antialiased`}
+      className={`${outfit.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-screen bg-canvas">
-        <Nav />
         {children}
         <Footer />
       </body>

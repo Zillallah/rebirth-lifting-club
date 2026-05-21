@@ -1,143 +1,203 @@
-# Rebirth Lifting Club — Project Agent Rules
+# Rebirth Lifting Club — Project Agent Rules (V2)
 
 > Loaded into every Claude Code / Codex session in this repo.
 > CLAUDE.md re-exports via `@AGENTS.md`. Read fully before generating code.
+>
+> **V2 supersedes V1.** All prior visual decisions (Fraunces Italic, JetBrains Mono dominant, deep red #B91C1C, sticky `min-h-[175vh]` pin pattern, X watermark in Manifesto) are DISCARDED. The architectural discipline below is preserved; everything else is new.
 
 ---
 
 ## Project
 
-Single-page conversion website for **Rebirth Lifting Club** — USMC veteran-owned, family-operated lifting club with two locations: Hesperia and La Verne, CA. Open and **staffed 24/7** at both locations. Built by Ashe Systems Consulting (operator: SGreene / Zillallah) as a spec build.
+Single-page conversion website for **Rebirth Lifting Club** — USMC veteran-owned, family-operated lifting club with two locations: Hesperia and La Verne, CA. Open and **staffed 24/7** at both. Operator: Shimira "Zillallah" Greene (Ashe Systems Consulting).
 
-Sibling projects on the same operator account (do NOT replicate their design language here):
+Sibling projects (do NOT mimic):
 - `alpha-omega-fitness` — boot camp gym, editorial-industrial w/ HYROX yellow
 - `athlos-training-grounds` — premium boutique studio
 
-Rebirth is heavier than both. Military-adjacent without being cringe.
+Rebirth V2 is **premium architectural industrial** — carbon-fiber + amber neon. Closer to a Porsche launch page than a fitness blog.
 
 ---
 
-## Voice (committed)
+## Voice
 
-Confident, plain-spoken, slightly hard. Sentences are short. Words are concrete.
+Confident, premium-industrial, slightly hard. Sentences are short. Words are concrete. **No fitness-marketing fluff** — no "transform your life," "unlock your potential," "your fitness journey."
 
-**No fitness-marketing fluff** — no "transform your life," no "unlock your potential," no "your fitness journey."
-
-What earns space: facts, hours, equipment, locations, the people. What doesn't: aspirational language.
-
-The veteran angle does the work. It doesn't need to be reinforced with drill-sergeant copy.
+What earns space: facts, hours, equipment, locations, the founder. What doesn't: aspirational language.
 
 ---
 
-## Architecture — non-negotiable
+## Architecture — non-negotiable (V2 §5)
 
 ### Section structure
 - **Linear sections only.** Each sits sequentially in document flow.
-- **NO** `-mt-[Xvh]`. **NO** negative margins. **NO** section overlap.
-- **Sticky pin allowed:** `min-h-[175vh]` wrapper with `sticky top-0 min-h-screen` inner.
-- **NO section-level entry animations.** No `whileInView` on section elements. Sections appear via natural document flow.
-- **Inner content fade-ups allowed** on headlines / paragraphs / stats. Duration ≤ 0.4s. `once: true`. First viewport entry only.
+- **NO** negative margins. **NO** section overlap.
+- **NO sticky-pinned section wrappers.** Each section is `min-h-screen` (hero) or `min-h-[80vh]` (everything else).
+- **NO section-level entry animations.** No `whileInView` on `<section>`.
+- **Inner content reveals allowed** on headlines / paragraphs / cards.
+  - Duration: **600–800ms** (slower than typical — cinematic)
+  - Easing: `cubic-bezier(0.16, 1, 0.3, 1)` (custom expo-out)
+  - `once: true` — never re-trigger
+  - First viewport entry only
 
 ### Required class strings
 
 Every section element:
 ```
-relative bg-canvas z-{N} min-h-[175vh] overflow-hidden
+relative bg-canvas z-{N} overflow-hidden
 ```
+(Some sections use `bg-carbon` instead — see the z-stack below.)
 
-Every sticky inner:
+Section inner wrapper (NO sticky):
 ```
-sticky top-0 min-h-screen flex items-center px-6 md:px-12 py-12 md:py-16 bg-canvas pointer-events-auto
+relative min-h-screen flex items-center px-6 md:px-12 lg:px-16 py-16 md:py-24
 ```
+(Hero uses `min-h-screen`. All other sections use `min-h-[80vh]` to vary the cadence.)
 
 ### Z-index sequence (LOCKED)
 
-| z | Section |
-|---|---|
-| 0 | Hero |
-| 10 | Manifesto |
-| 20 | The Marine |
-| 30 | Membership |
-| 40 | Inside the Club |
-| 50 | Two Clubs |
-| 60 | Trial |
-| 70 | Reviews |
-| 80 | FAQ |
-| 90 | Footer |
-
-Nav is `z-[100]`, above everything.
+| z | Section | Background |
+|---|---|---|
+| 0 | Hero (video + UI overlay) | video, `bg-canvas` below |
+| 10 | Doctrine (was "Manifesto") | `bg-canvas` + carbon-texture |
+| 20 | The Founder | `bg-carbon` |
+| 30 | Inside the Club | `bg-canvas` |
+| 40 | Membership | `bg-canvas` |
+| 50 | Stations (was "Two Clubs") | `bg-carbon` |
+| 60 | The Pass (Trial) | `bg-canvas` |
+| 70 | Voices (Reviews) | `bg-carbon` |
+| 80 | Protocols (FAQ) | `bg-canvas` |
+| 90 | Footer | `bg-canvas` + carbon-texture |
 
 ---
 
-## Design tokens (LOCKED)
+## Design tokens (V2 — LOCKED in `globals.css` @theme)
 
-Encoded in `src/app/globals.css` via `@theme`. Use Tailwind utilities like `bg-canvas`, `text-off-white`, `text-accent`, `bg-accent`, `text-tactical`, `text-steel`. DO NOT introduce new colors.
+DO NOT introduce colors outside this list.
 
 | Token | Value | Role |
 |---|---|---|
-| `canvas` | `#0A0A0A` | Page background |
-| `off-white` | `#F5F5F0` | Primary text |
-| `accent` | `#B91C1C` | Deep red — military-adjacent, heavier than Alpha's yellow |
-| `steel` | `#52525B` | Secondary — equipment/industrial |
-| `tactical` | `#666666` | Mono labels, metadata, section numbers |
-| `accent-glow` | `rgba(185,28,28,0.12)` | 12% accent for subtle washes |
+| `canvas` | `#050505` | Page background (slightly warmer than pure black) |
+| `carbon` | `#0E0E10` | Section surface — cards, secondary panels |
+| `carbon-2` | `#1A1A1C` | Tertiary surface — elevated cards |
+| `off-white` | `#F4EFE6` | Primary text (warm) |
+| `off-white-2` | `#C9C4BC` | Secondary text |
+| `off-white-3` | `#7A7771` | Tertiary text — muted |
+| `amber` | `#F4A024` | Primary accent — matches hero video neon |
+| `amber-deep` | `#C77F12` | Amber hover/active |
+| `amber-glow` | `rgba(244,160,36,0.25)` | 25% amber wash / glow |
+| `steel` | `#3A3A3D` | Secondary structural — hairlines, dividers |
+
+Amber is the **only** accent color. No second accent anywhere.
+
+Use Tailwind utilities: `bg-canvas`, `bg-carbon`, `text-off-white`, `text-off-white-2`, `text-off-white-3`, `text-amber`, `bg-amber`, `border-amber`, `border-steel`, etc.
 
 ---
 
-## Typography (LOCKED)
+## Typography (V2 — LOCKED)
 
-- **Display** — `Fraunces Italic` weight 900. Editorial italic for all headlines. Loaded with `weight: "variable"` + `style: "italic"` + `axes: ["opsz","SOFT","WONK"]`. Select weight per-element via CSS `font-weight: 900`. Utility class: `.display-italic`.
-- **Tactical** — `JetBrains Mono`. Section numbers, timestamps, metadata, form labels, section eyebrows. Utility class: `.tactical`.
-- **Body** — `Geist` (variable). Sans-serif body copy.
+```css
+--font-display: var(--font-outfit), system-ui, sans-serif;
+--font-body:    var(--font-outfit), system-ui, sans-serif;
+--font-mono:    var(--font-geist-mono), ui-monospace, monospace;
+--font-data:    var(--font-geist-mono), ui-monospace, monospace;
+```
+
+**Outfit is the entire type system** — display, body, labels, buttons. Geist Mono is used only for live-data callouts (the nav `LiveStatus` timestamp and one or two stat-style data displays).
+
+NO Fraunces Italic. NO JetBrains Mono. NO stencil display. Hierarchy via weight + size + letter-spacing, not font swaps.
+
+Weights available on Outfit (variable): 200, 300, 400, 500, 600, 700, 800, 900.
+
+### Section number label
+
+Always rendered as `font-display font-semibold text-xs tracking-[0.32em] text-amber`. Example: `001 / DOCTRINE`. Amber color is what makes it read as a system element.
+
+---
+
+## Texture & graphic system (V2 §6.3, §6.5)
+
+### Carbon-fiber texture (CSS-generated, no image)
+Applied via the `carbon-texture` utility class defined in `globals.css`. Use on Doctrine and Footer backgrounds.
+
+### XMark component (`src/components/XMark.tsx`)
+The Rebirth X mark — two crossing diagonals. Three variants:
+- `outline` — thin amber lines, no letters; section accents / watermarks
+- `glow` — thin amber lines + drop-glow + L/R/B/C quadrant letters; the brand mark
+- `architectural` — thicker rounded lines matching the hero video's neon; used only once or twice at large scale
+
+Use with `size` (`sm` | `md` | `lg` | `xl`).
+
+---
+
+## Motion grammar (V2 §6.4)
+
+Slower and more cinematic than the V1 fade-ups.
+
+- **Inner content reveals**: `opacity 0→1`, `scale 0.97→1`, 8px upward translate. Duration 700ms, custom expo-out (`[0.16, 1, 0.3, 1]`).
+- **Amber hover effects**: `box-shadow: 0 0 24px var(--color-amber-glow)`. 250ms ease-out.
+- **Pulse indicator**: amber dot in `LiveStatus`. Soft scale + opacity loop (1 → 0.85 → 1), 2.2s ease-in-out, infinite. Defined as `.animate-pulse-soft` in globals.css.
+- **NO section-level transitions.**
+
+---
+
+## Component patterns (V2 §6.6)
+
+### Premium dark card
+```
+bg-carbon border border-steel/40 p-8 md:p-10
+hover:border-amber/60 hover:shadow-[0_0_40px_-12px_rgba(244,160,36,0.3)]
+transition-all duration-300
+```
+
+### Amber outlined CTA (primary)
+```
+inline-flex items-center gap-3 px-7 py-4
+border-[1.5px] border-amber text-amber font-bold text-sm tracking-[0.22em]
+hover:bg-amber hover:text-canvas hover:shadow-[0_0_30px_-6px_var(--color-amber-glow)]
+transition-all duration-250
+```
+
+### Amber filled CTA (secondary, rare)
+```
+inline-flex items-center gap-3 px-7 py-4
+bg-amber text-canvas font-bold text-sm tracking-[0.22em]
+hover:bg-amber-deep transition-all duration-250
+```
 
 ---
 
 ## Stack (LOCKED)
 
-- Next.js 16 (App Router only, no Pages Router)
+- Next.js 16 (App Router only)
 - React 19, TypeScript strict
-- Tailwind v4 (`@theme` in `globals.css`, NOT `tailwind.config.ts` color extensions)
-- Framer Motion (inner content fade-ups only)
-- Supabase (form submissions for Trial section)
-- Resend (email notifications for Trial section)
+- Tailwind v4 (`@theme` in `globals.css`)
+- Framer Motion (inner content reveals only — never on section elements)
+- Supabase (Trial form submissions, pass-number ledger)
+- Resend (operator + visitor confirmation emails)
 - Vercel deployment
 
 No new motion libraries. No GSAP, Three.js, Anime.js.
 
 ---
 
-## Build discipline — BATCHED, NOT FREELANCED
+## Build discipline — BATCHED
 
-| Batch | Scope | Section z | Status |
-|---|---|---|---|
-| 0 | Foundation (scaffold, tokens, fonts, nav, footer) | — | ✅ |
-| 1 | Hero + IG proof strip | z-0 | Pending |
-| 2 | Manifesto | z-10 | Pending |
-| 3 | The Marine | z-20 | Pending |
-| 4 | Membership | z-30 | Pending |
-| 5 | Inside the Club | z-40 | Pending |
-| 6 | Two Clubs | z-50 | Pending |
-| 7 | Trial / Issue Pass | z-60 | Pending |
-| 8 | Reviews | z-70 | Pending |
-| 9 | FAQ | z-80 | Pending |
-| 10 | Footer | z-90 | Pending |
+| Batch | Section | z | Background | Status |
+|---|---|---|---|---|
+| 0 | Foundation | — | — | ✅ V2 |
+| 1 | Hero | 0 | video + canvas | Pending |
+| 2 | Doctrine | 10 | canvas + carbon-texture | Pending |
+| 3 | The Founder | 20 | carbon | Pending |
+| 4 | Inside the Club | 30 | canvas | Pending |
+| 5 | Membership | 40 | canvas | Pending |
+| 6 | Stations | 50 | carbon | Pending |
+| 7 | The Pass | 60 | canvas | Pending |
+| 8 | Voices | 70 | carbon | Pending |
+| 9 | Protocols | 80 | canvas | Pending |
+| 10 | Footer | 90 | canvas + carbon-texture | Pending |
 
 Never build sections outside the current batch.
-
----
-
-## Creative DNA (the WOW layer)
-
-The 8 moves in §6 of the master brief are non-optional. Most-load-bearing for downstream batches:
-
-1. **Live STAFFED NOW timestamp** in nav — already built in `Nav.tsx`.
-2. **X mark as architecture** — section dividers, section numbering (`001`, `002`...), loading pulse animation `.x-mark-pulse` defined in globals.css.
-3. **Type-led hero** — Fraunces 900 italic, ragged three-line composition, photo at 40% opacity BEHIND the type, headline bleeds `-2vw` off the left edge.
-4. **Two Clubs as a real-time league** — split-screen, live timestamps both panels, Open-Meteo weather pills with graceful fallback.
-5. **The Marine as editorial feature** — magazine spread, not a coach card.
-6. **21K IG proof strip** — directly under hero, 4 IG tiles, mono caption "21,000 LIFTERS FOLLOW US. NONE OF THEM ARE INFLUENCERS."
-7. **One full-bleed cinematic section** — Inside the Club, full-viewport image/video with corner overlay text.
-8. **Trial as stamped permit** — "ISSUE PASS" not "Sign up." Pass numbers stored in Supabase as a real ledger, displayed in success state.
 
 ---
 
@@ -155,46 +215,37 @@ The 8 moves in §6 of the master brief are non-optional. Most-load-bearing for d
 | Instagram | @rebirthliftingclub (21K followers) |
 | Facebook | facebook.com/rebirthliftingclub |
 | Reviews | 260 Google · 4.7★ · 24 Yelp · 5 Facebook 100% recommend |
-| Pricing | $30.99/mo (1-yr contract) · $35.99/mo (no contract) · Day/Week/Month passes · Personal Training (call) |
+| Pricing | $30.99/mo (1-yr contract) · $35.99/mo (no contract) · Day/Week/Month passes (call) · Personal Training (call) |
 | Affiliation | Official lifting club of Rebirth Athletics |
 | Tagline | "First we run. Then we lift." |
 
-Hardcode these. If a batch prompt contradicts, flag before proceeding.
+Hardcode these. Flag any batch prompt that contradicts before proceeding.
 
 ---
 
-## Performance budget
+## Performance & SEO (V2 §5)
 
-- Lighthouse 90+ across Performance / Accessibility / Best Practices / SEO
+- Lighthouse 90+ on all four categories
+- Hero video must be re-encoded to ≤1.2MB (`.mp4` + `.webm` sources) via `ffmpeg -c:v libx264 -crf 26 -preset slow -vf scale=1280:720 -an -movflags +faststart`
 - `next/image` with `sizes` on every image
-- No unused Tailwind classes
-- `'use client'` only when interactivity demands it
-- Preload only Fraunces weight actually used (900)
-
----
-
-## SEO
-
-- Meta description on every page (already set in `layout.tsx`)
-- OG image at `/og-image.jpg` (1200×630) — TBD
-- `schema.org` LocalBusiness with BOTH addresses, phone, hours, geo coords — add in Batch 10 footer
-- `robots.txt` and `sitemap.xml`
-- Page title: `Rebirth Lifting Club — Hesperia + La Verne, CA · Veteran-Owned · Staffed 24/7` (set)
+- `'use client'` only when truly required (LiveStatus, Trial form)
+- Meta description, OG image (1200×630), schema.org LocalBusiness with both addresses + phone + hours + geo, `robots.txt`, `sitemap.xml`
+- Page title: `Rebirth Lifting Club — Hesperia + La Verne, CA · Veteran-Owned · Staffed 24/7`
 
 ---
 
 ## Things to NEVER do
 
 1. Build sections outside the current batch.
-2. Use stock photos or AI-generated imagery.
-3. Introduce additional motion libraries.
-4. Add `-mt-[Xvh]` negative margins between sections.
+2. Bring back any V1 visual decision (Fraunces, deep red, sticky pin, X watermark in Manifesto, JetBrains Mono dominant).
+3. Use stock photos or AI-generated imagery.
+4. Add `-mt-[Xvh]` or any negative section margin.
 5. Add section-level entry animations (whileInView on `<section>`).
-6. Soften the voice into fitness-marketing language.
-7. Introduce new colors outside the §5 tokens.
-8. Replace Fraunces with another italic display.
-9. Commit `.env.local` or any file with real API keys.
-10. Skip the §9 pre-flight gate for operator-supplied assets.
+6. Use sticky-pinned section wrappers.
+7. Soften the voice into fitness-marketing language.
+8. Introduce a second accent color (amber is the only accent).
+9. Replace Outfit with another display font.
+10. Commit `.env.local` or any file with real API keys.
 
 ---
 
@@ -202,8 +253,8 @@ Hardcode these. If a batch prompt contradicts, flag before proceeding.
 
 - **Operator:** Shimira "Zillallah" Greene (Ashe Systems Consulting)
 - **Client:** Rebirth Lifting Club — Armando S., USMC 0331
-- **Pitch model:** Spec build → present to Armando in person → tiered pricing after close (booking automation, membership flow integrations, email sequences, etc.)
-- **Bar to beat:** Athlos Training Grounds + Alpha Omega Fitness (both ended at "competent"). The DNA layer in §6 is the difference.
+- **Pitch model:** Spec build → present in person → tiered pricing post-close
+- **Bar to beat:** V1 of this same build (visually too close to Alpha Omega — operator rejected). V2 establishes a distinct premium-architectural-industrial identity that can't be confused with sibling projects.
 
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
