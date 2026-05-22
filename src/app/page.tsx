@@ -8,27 +8,22 @@ import { ThePass } from "@/components/ThePass";
 import { Voices } from "@/components/Voices";
 import { Protocols } from "@/components/Protocols";
 import { SiteFooter } from "@/components/SiteFooter";
-import { XDivider } from "@/components/XDivider";
+import { MarqueeStrip } from "@/components/MarqueeStrip";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-[var(--color-canvas)]">
       <Hero />
-      <XDivider />
+      <MarqueeStrip variant="proof" />
       <Doctrine />
-      <XDivider />
       <Founder />
-      <XDivider />
+      <MarqueeStrip variant="standard" />
       <InsideTheClub />
-      <XDivider />
       <Membership />
-      <XDivider />
+      <MarqueeStrip variant="bothStations" />
       <Stations />
-      <XDivider />
       <ThePass />
-      <XDivider />
       <Voices />
-      <XDivider />
       <Protocols />
       <SiteFooter />
     </main>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Reveal, RevealGroup, RevealItem } from "./motion/Reveal";
+import { Reveal, SlideIn } from "./motion";
 
 type ProtocolProps = {
   question: string;
@@ -16,27 +16,17 @@ function Protocol({ question, answer, isOpen, onClick }: ProtocolProps) {
       <button
         type="button"
         onClick={onClick}
-        className="w-full flex items-center justify-between py-6 md:py-7 text-left group"
+        className="w-full flex items-center justify-between py-7 md:py-8 text-left group"
         aria-expanded={isOpen}
       >
-        <span className="font-bold text-[18px] md:text-[20px] tracking-[-0.005em] text-[var(--color-off-white)] group-hover:text-[var(--color-amber)] transition-colors duration-300 pr-8">
+        <span className="font-bold text-[19px] md:text-[22px] tracking-[-0.005em] text-[var(--color-off-white)] group-hover:text-[var(--color-amber)] transition-colors duration-300 pr-8">
           {question}
         </span>
-        <span
-          className={`flex-shrink-0 text-[var(--color-amber)] text-[24px] leading-none transition-transform duration-500 ${
-            isOpen ? "rotate-45" : ""
-          }`}
-        >
-          +
-        </span>
+        <span className={`flex-shrink-0 text-[var(--color-amber)] text-[26px] leading-none transition-transform duration-500 ${isOpen ? "rotate-45" : ""}`}>+</span>
       </button>
-      <div
-        className={`grid transition-all duration-500 ease-out ${
-          isOpen ? "grid-rows-[1fr] opacity-100 pb-6 md:pb-8" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
+      <div className={`grid transition-all duration-500 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100 pb-7 md:pb-9" : "grid-rows-[0fr] opacity-0"}`}>
         <div className="overflow-hidden">
-          <p className="font-light text-[15px] md:text-[16px] leading-[1.65] text-[var(--color-off-white)]/75 max-w-[760px] pr-8">
+          <p className="font-light text-[15px] md:text-[17px] leading-[1.7] text-[var(--color-off-white)]/75 max-w-[760px] pr-8">
             {answer}
           </p>
         </div>
@@ -58,33 +48,38 @@ const protocols = [
 
 export function Protocols() {
   const [open, setOpen] = useState<number | null>(null);
-
   return (
-    <section id="protocols" className="relative bg-[var(--color-canvas)] z-80 overflow-hidden py-32 md:py-48">
+    <section id="protocols" className="relative bg-[var(--color-canvas)] z-80 overflow-hidden py-32 md:py-44">
       <div className="relative w-full max-w-[960px] mx-auto px-6 md:px-12">
         <Reveal>
-          <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-6">
+          <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">
             008 / PROTOCOLS
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-extrabold text-[40px] md:text-[64px] leading-[1.02] tracking-[-0.025em] text-[var(--color-off-white)] mb-16 md:mb-20">
+          <h2 className="font-extrabold text-[44px] md:text-[72px] leading-[1.0] tracking-[-0.025em] text-[var(--color-off-white)] mb-20 md:mb-28">
             Common <span className="text-[var(--color-amber)]">questions.</span>
           </h2>
         </Reveal>
 
-        <RevealGroup stagger={0.08}>
+        <div>
           {protocols.map((p, i) => (
-            <RevealItem key={i} y={20}>
+            <SlideIn
+              key={i}
+              direction={i % 2 === 0 ? "left" : "right"}
+              distance={60}
+              delay={i * 0.05}
+              duration={0.7}
+            >
               <Protocol
                 question={p.q}
                 answer={p.a}
                 isOpen={open === i}
                 onClick={() => setOpen(open === i ? null : i)}
               />
-            </RevealItem>
+            </SlideIn>
           ))}
-        </RevealGroup>
+        </div>
       </div>
     </section>
   );
