@@ -1,47 +1,69 @@
 "use client";
 
-type StationProps = {
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { FadeUp } from "./motion/FadeUp";
+
+type StationHalfProps = {
   label: string;
   city: string;
   address1: string;
   address2: string;
   bgImage: string;
   directionsUrl: string;
+  side: "left" | "right";
 };
 
-function StationHalf({ label, city, address1, address2, bgImage, directionsUrl }: StationProps) {
+function StationHalf({ label, city, address1, address2, bgImage, directionsUrl, side }: StationHalfProps) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  // Image zooms slowly as section scrolls past
+  const scale = useTransform(scrollYProgress, [0, 1], [1.0, 1.22]);
+  // City name parallaxes opposite direction
+  const cityY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   return (
     <a
+      ref={ref}
       href={directionsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block aspect-[4/5] md:aspect-auto md:min-h-[680px] overflow-hidden"
+      className="group relative block aspect-[4/5] md:aspect-auto md:min-h-[720px] overflow-hidden"
     >
-      {/* Image background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] group-hover:scale-[1.04]"
-        style={{ backgroundImage: `url('${bgImage}')` }}
+      {/* Scrolling-zoom image */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url('${bgImage}')`, scale }}
       />
-      {/* Dark fallback if image missing */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/40 via-transparent to-[#050505]/95" />
-      <div className="absolute inset-0 bg-[var(--color-canvas)]/30 group-hover:bg-[var(--color-canvas)]/10 transition-colors duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/30 via-transparent to-[#050505]/95" />
+      <div className="absolute inset-0 bg-[var(--color-canvas)]/20 group-hover:bg-[var(--color-canvas)]/5 transition-colors duration-700" />
 
-      {/* Top-left label */}
-      <div className="absolute top-8 left-8 md:top-10 md:left-10">
+      {/* Top label */}
+      <div className="absolute top-8 left-8 md:top-10 md:left-10 z-10">
         <div className="text-[var(--color-amber)] font-semibold text-[10px] md:text-[11px] tracking-[0.32em]">
           {label}
         </div>
       </div>
 
-      {/* Bottom — city + address */}
-      <div className="absolute bottom-8 left-8 right-8 md:bottom-10 md:left-10 md:right-10">
-        <h3 className="font-extrabold text-[56px] sm:text-[72px] md:text-[96px] lg:text-[112px] leading-[0.9] tracking-[-0.035em] text-[var(--color-off-white)] mb-5">
+      {/* City name floats with parallax */}
+      <motion.div
+        style={{ y: cityY }}
+        className="absolute bottom-32 md:bottom-44 left-8 right-8 md:left-10 md:right-10 z-10"
+      >
+        <h3 className="font-extrabold text-[64px] sm:text-[88px] md:text-[112px] lg:text-[140px] leading-[0.88] tracking-[-0.04em] text-[var(--color-off-white)]">
           {city}
         </h3>
-        <div className="font-light text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-off-white)]/80">
+      </motion.div>
+
+      {/* Address pinned at bottom */}
+      <div className="absolute bottom-8 left-8 right-8 md:bottom-10 md:left-10 md:right-10 z-10">
+        <div className="font-light text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-off-white)]/85 mb-5">
           {address1}<br />{address2}
         </div>
-        <div className="mt-6 inline-flex items-center gap-3 text-[var(--color-amber)] font-bold text-[11px] md:text-[12px] tracking-[0.22em] border-b border-[var(--color-amber)]/0 group-hover:border-[var(--color-amber)] pb-1 transition-all duration-300">
+        <div className="inline-flex items-center gap-3 text-[var(--color-amber)] font-bold text-[11px] md:text-[12px] tracking-[0.22em] border-b border-[var(--color-amber)]/0 group-hover:border-[var(--color-amber)] pb-1 transition-all duration-300">
           GET DIRECTIONS
           <span className="text-[16px] transition-transform group-hover:translate-x-1">→</span>
         </div>
@@ -53,8 +75,7 @@ function StationHalf({ label, city, address1, address2, bgImage, directionsUrl }
 export function Stations() {
   return (
     <section id="stations" className="relative bg-[var(--color-canvas)] overflow-hidden">
-      {/* Phone whisper, centered, above the two halves */}
-      <div className="text-center py-10 md:py-14">
+      <FadeUp className="text-center py-12 md:py-16">
         <a
           href="tel:+17609953137"
           className="inline-flex items-baseline gap-4 font-mono text-[var(--color-off-white)]/55 hover:text-[var(--color-amber)] transition-colors"
@@ -64,10 +85,11 @@ export function Stations() {
             (760) 995-3137
           </span>
         </a>
-      </div>
+      </FadeUp>
 
       <div className="grid md:grid-cols-2">
         <StationHalf
+          side="left"
           label="STATION ONE"
           city="HESPERIA"
           address1="15555 Main St, Ste C1-2"
@@ -76,6 +98,7 @@ export function Stations() {
           directionsUrl="https://maps.google.com/?q=15555+Main+St+Hesperia+CA+92345"
         />
         <StationHalf
+          side="right"
           label="STATION TWO"
           city="LA VERNE"
           address1="1473 Foothill Boulevard"

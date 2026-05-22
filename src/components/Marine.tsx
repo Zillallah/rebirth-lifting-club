@@ -1,18 +1,20 @@
 "use client";
 
+import { FadeUp } from "./motion/FadeUp";
+import { KenBurns } from "./motion/KenBurns";
+
 export function Marine() {
   return (
     <section className="relative bg-[var(--color-canvas)] py-32 md:py-44 overflow-hidden">
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-12 md:gap-20 items-center">
 
-          {/* Portrait — left half */}
-          <div className="relative w-full aspect-[4/5] bg-[var(--color-carbon)] overflow-hidden">
+          {/* Portrait — Ken Burns scales as you scroll past */}
+          <KenBurns fromScale={1.05} toScale={1.22} className="relative w-full aspect-[4/5] bg-[var(--color-carbon)]">
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: "url('/armando-portrait.jpg')" }}
             />
-            {/* SVG fallback silhouette — replace /armando-portrait.jpg with real photo */}
             <svg
               className="absolute inset-0 w-full h-full opacity-90"
               viewBox="0 0 400 500"
@@ -31,7 +33,6 @@ export function Marine() {
                 fill="#050505"
               />
             </svg>
-            {/* Grain overlay for film quality */}
             <div
               className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
               style={{
@@ -39,21 +40,26 @@ export function Marine() {
                   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.4'/></svg>\")",
               }}
             />
-          </div>
+          </KenBurns>
 
-          {/* Right half — one line, three identifiers, three sentences */}
           <div>
-            <h2 className="font-extrabold text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] leading-[0.95] tracking-[-0.035em] text-[var(--color-off-white)] mb-10">
-              Built by a Marine.
-            </h2>
+            <FadeUp duration={1.1}>
+              <h2 className="font-extrabold text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] leading-[0.95] tracking-[-0.035em] text-[var(--color-off-white)] mb-10">
+                Built by a Marine.
+              </h2>
+            </FadeUp>
 
-            <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-12">
-              ARMANDO · USMC 0331 · MACHINE GUNNER
-            </div>
+            <FadeUp delay={0.2} duration={1.0}>
+              <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-12">
+                ARMANDO · USMC 0331 · MACHINE GUNNER
+              </div>
+            </FadeUp>
 
-            <p className="font-light text-[16px] md:text-[18px] leading-[1.7] text-[var(--color-off-white)]/75 max-w-[460px]">
-              He served. He came home. He built the gym he wanted to train in. Two stations later, the standard hasn&apos;t moved.
-            </p>
+            <FadeUp delay={0.35} duration={1.0}>
+              <p className="font-light text-[16px] md:text-[18px] leading-[1.7] text-[var(--color-off-white)]/75 max-w-[460px]">
+                He served. He came home. He built the gym he wanted to train in. Two stations later, the standard hasn&apos;t moved.
+              </p>
+            </FadeUp>
           </div>
         </div>
       </div>
