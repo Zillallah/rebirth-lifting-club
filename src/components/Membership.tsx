@@ -48,7 +48,7 @@ function Tier({ badge, label, price, cadence, description, ctaLabel, ctaHref, fe
 
 export function Membership() {
   return (
-    <section id="membership" className="relative bg-[var(--color-canvas)] z-40 overflow-hidden min-h-[90vh] py-32 md:py-48">
+    <section id="membership" className="relative bg-[var(--color-canvas)] z-40 overflow-hidden py-20 md:py-28">
       <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12">
         <SlideIn direction="left" distance={80} duration={0.9}>
           <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">

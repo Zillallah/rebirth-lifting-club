@@ -4,10 +4,10 @@ import { Reveal, RevealGroup, RevealItem, ZoomReveal } from "./motion";
 
 export function SiteFooter() {
   return (
-    <footer id="contact" className="relative bg-[var(--color-carbon)] z-90 overflow-hidden pt-32 md:pt-52">
+    <footer id="contact" className="relative bg-[var(--color-carbon)] z-90 overflow-hidden pt-24 md:pt-32">
       <div className="relative w-full max-w-[1480px] mx-auto px-6 md:px-12">
         <ZoomReveal from="in" startScale={1.3} duration={1.4}>
-          <h2 className="font-extrabold text-[112px] sm:text-[160px] md:text-[240px] lg:text-[280px] leading-[0.85] tracking-[-0.04em] text-[var(--color-off-white)] mb-20 md:mb-32">
+          <h2 className="font-extrabold text-[112px] sm:text-[120px] md:text-[160px] lg:text-[200px] leading-[0.85] tracking-[-0.04em] text-[var(--color-off-white)] mb-20 md:mb-32">
             REBIRTH<span className="text-[var(--color-amber)]">.</span>
           </h2>
         </ZoomReveal>

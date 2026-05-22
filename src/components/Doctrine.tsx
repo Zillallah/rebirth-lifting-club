@@ -19,7 +19,7 @@ export function Doctrine() {
     <section
       ref={ref}
       id="doctrine"
-      className="relative bg-[var(--color-canvas)] z-10 overflow-hidden min-h-screen flex items-center py-40 md:py-56"
+      className="relative bg-[var(--color-canvas)] z-10 overflow-hidden py-20 md:py-28"
     >
       <motion.div
         className="absolute -right-20 md:-right-32 top-1/2 -translate-y-1/2 pointer-events-none"

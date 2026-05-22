@@ -6,7 +6,7 @@ export function InsideTheClub() {
   return (
     <section id="inside" className="relative bg-[var(--color-canvas)] z-30 overflow-hidden">
       {/* Cinematic block — image fills generous space, zooms slowly as you scroll past */}
-      <div className="relative w-full h-[110vh] min-h-[680px] overflow-hidden">
+      <div className="relative w-full h-[75vh] min-h-[520px] overflow-hidden">
         <ZoomParallax fromScale={1.0} toScale={1.3} className="absolute inset-0">
           <div
             className="w-full h-full bg-cover bg-center"
@@ -40,7 +40,7 @@ export function InsideTheClub() {
       </div>
 
       {/* Stats — generous breathing room */}
-      <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12 py-32 md:py-48">
+      <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12 py-20 md:py-28">
         <RevealGroup stagger={0.18} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
           <RevealItem y={50}>
             <div className="font-extrabold text-[56px] md:text-[80px] leading-[1] text-[var(--color-amber)] mb-4">24/7</div>

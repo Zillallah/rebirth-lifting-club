@@ -49,7 +49,7 @@ const protocols = [
 export function Protocols() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section id="protocols" className="relative bg-[var(--color-canvas)] z-80 overflow-hidden py-32 md:py-44">
+    <section id="protocols" className="relative bg-[var(--color-canvas)] z-80 overflow-hidden py-20 md:py-28">
       <div className="relative w-full max-w-[960px] mx-auto px-6 md:px-12">
         <Reveal>
           <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">

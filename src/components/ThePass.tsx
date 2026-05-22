@@ -25,7 +25,7 @@ export function ThePass() {
   };
 
   return (
-    <section id="the-pass" className="relative bg-[var(--color-canvas)] z-60 overflow-hidden min-h-[90vh] flex items-center py-32 md:py-48">
+    <section id="the-pass" className="relative bg-[var(--color-canvas)] z-60 overflow-hidden py-20 md:py-28">
       <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12">
         <Reveal>
           <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">

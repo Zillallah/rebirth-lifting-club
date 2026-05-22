@@ -27,7 +27,7 @@ function Review({ quote, name }: ReviewProps) {
 
 export function Voices() {
   return (
-    <section id="voices" className="relative bg-[var(--color-carbon)] z-70 overflow-hidden py-28 md:py-36">
+    <section id="voices" className="relative bg-[var(--color-carbon)] z-70 overflow-hidden py-20 md:py-28">
       <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12">
         <Reveal>
           <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">
