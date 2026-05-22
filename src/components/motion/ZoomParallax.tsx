@@ -3,24 +3,32 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ReactNode, useRef } from "react";
 
-type ParallaxProps = {
+type ZoomParallaxProps = {
   children: ReactNode;
-  speed?: number;
+  fromScale?: number;
+  toScale?: number;
   className?: string;
 };
 
-export function Parallax({ children, speed = -0.3, className = "" }: ParallaxProps) {
+export function ZoomParallax({
+  children,
+  fromScale = 1.0,
+  toScale = 1.25,
+  className = "",
+}: ZoomParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, speed * 250]);
+  const scale = useTransform(scrollYProgress, [0, 1], [fromScale, toScale]);
   if (reduce) return <div ref={ref} className={className}>{children}</div>;
   return (
-    <motion.div ref={ref} className={className} style={{ y }}>
-      {children}
-    </motion.div>
+    <div ref={ref} className={className}>
+      <motion.div style={{ scale }} className="w-full h-full">
+        {children}
+      </motion.div>
+    </div>
   );
 }
