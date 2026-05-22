@@ -62,7 +62,7 @@ export function ThePass() {
               />
 
               <div>
-                <div className="text-[var(--color-off-white)]/45 font-medium text-[10px] tracking-[0.32em] mb-4">
+                <div className="text-[var(--color-off-white)]/65 font-medium text-[10px] tracking-[0.32em] mb-4">
                   STATION
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -71,7 +71,7 @@ export function ThePass() {
                       key={s}
                       type="button"
                       onClick={() => setFormData({ ...formData, station: s })}
-                      className={`py-4 px-4 border-[1.5px] font-bold text-[12px] tracking-[0.22em] transition-all duration-200 ${
+                      className={`min-h-[48px] py-4 px-4 border-[1.5px] font-bold text-[12px] tracking-[0.22em] transition-all duration-200 ${
                         formData.station === s
                           ? "border-[var(--color-amber)] text-[var(--color-amber)]"
                           : "border-[var(--color-steel)]/50 text-[var(--color-off-white)]/55 hover:border-[var(--color-amber)]/50"
@@ -109,7 +109,7 @@ type FieldProps = {
 function Field({ label, name, type, value, onChange }: FieldProps) {
   return (
     <div>
-      <label htmlFor={name} className="block text-[var(--color-off-white)]/45 font-medium text-[10px] tracking-[0.32em] mb-3">
+      <label htmlFor={name} className="block text-[var(--color-off-white)]/65 font-medium text-[10px] tracking-[0.32em] mb-3">
         {label}
       </label>
       <input

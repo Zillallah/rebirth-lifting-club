@@ -47,9 +47,9 @@ export function SiteFooter() {
               IG · @REBIRTHLIFTINGCLUB
             </a>
           </div>
-          <div className="text-[var(--color-off-white)]/40">
+          <div className="text-[var(--color-off-white)]/55">
             © 2026 REBIRTH LIFTING CLUB · USMC VETERAN-OWNED · SITE BY{" "}
-            <a href="https://ashesystems.ai" target="_blank" rel="noopener noreferrer" className="text-[var(--color-amber)] hover:underline">
+            <a href="https://ashesystems.ai" target="_blank" rel="noopener noreferrer" className="text-[var(--color-amber)] underline underline-offset-2">
               ASHE SYSTEMS
             </a>
           </div>
