@@ -1,65 +1,50 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { FadeUp } from "./motion/FadeUp";
 
-type StationHalfProps = {
+type StationCardProps = {
   label: string;
   city: string;
   address1: string;
   address2: string;
   bgImage: string;
+  bgMotion: "zoom" | "drift";
   directionsUrl: string;
-  side: "left" | "right";
 };
 
-function StationHalf({ label, city, address1, address2, bgImage, directionsUrl, side }: StationHalfProps) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  // Image zooms slowly as section scrolls past
-  const scale = useTransform(scrollYProgress, [0, 1], [1.0, 1.22]);
-  // City name parallaxes opposite direction
-  const cityY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+function StationCard({ label, city, address1, address2, bgImage, bgMotion, directionsUrl }: StationCardProps) {
+  const motionClass = bgMotion === "zoom" ? "photo-zoom" : "photo-drift";
 
   return (
     <a
-      ref={ref}
       href={directionsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block aspect-[4/5] md:aspect-auto md:min-h-[720px] overflow-hidden"
+      className="group relative block aspect-[4/5] md:aspect-[3/4] overflow-hidden border border-[var(--color-steel)]/30 hover:border-[var(--color-amber)]/60 transition-colors duration-500"
     >
-      {/* Scrolling-zoom image */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${bgImage}')`, scale }}
+      {/* Continuous CSS-keyframe motion on the photo */}
+      <div
+        className={`absolute inset-0 bg-cover bg-center ${motionClass}`}
+        style={{
+          backgroundImage: `url('${bgImage}')`,
+          filter: "brightness(0.7) contrast(1.05)",
+        }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/30 via-transparent to-[#050505]/95" />
-      <div className="absolute inset-0 bg-[var(--color-canvas)]/20 group-hover:bg-[var(--color-canvas)]/5 transition-colors duration-700" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050505]/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-[var(--color-canvas)]/20 group-hover:bg-[var(--color-canvas)]/0 transition-colors duration-700 pointer-events-none" />
 
-      {/* Top label */}
+      {/* Label top-left */}
       <div className="absolute top-8 left-8 md:top-10 md:left-10 z-10">
         <div className="text-[var(--color-amber)] font-semibold text-[10px] md:text-[11px] tracking-[0.32em]">
           {label}
         </div>
       </div>
 
-      {/* City name floats with parallax */}
-      <motion.div
-        style={{ y: cityY }}
-        className="absolute bottom-32 md:bottom-44 left-8 right-8 md:left-10 md:right-10 z-10"
-      >
-        <h3 className="font-extrabold text-[64px] sm:text-[88px] md:text-[112px] lg:text-[140px] leading-[0.88] tracking-[-0.04em] text-[var(--color-off-white)]">
+      {/* City + address pinned bottom */}
+      <div className="absolute bottom-8 left-8 right-8 md:bottom-10 md:left-10 md:right-10 z-10">
+        <h3 className="font-extrabold text-[56px] sm:text-[72px] md:text-[88px] lg:text-[112px] leading-[0.88] tracking-[-0.04em] text-[var(--color-off-white)] mb-5">
           {city}
         </h3>
-      </motion.div>
-
-      {/* Address pinned at bottom */}
-      <div className="absolute bottom-8 left-8 right-8 md:bottom-10 md:left-10 md:right-10 z-10">
         <div className="font-light text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-off-white)]/85 mb-5">
           {address1}<br />{address2}
         </div>
@@ -74,38 +59,39 @@ function StationHalf({ label, city, address1, address2, bgImage, directionsUrl, 
 
 export function Stations() {
   return (
-    <section id="stations" className="relative bg-[var(--color-canvas)] overflow-hidden">
-      <FadeUp className="text-center py-12 md:py-16">
-        <a
-          href="tel:+17609953137"
-          className="inline-flex items-baseline gap-4 font-mono text-[var(--color-off-white)]/55 hover:text-[var(--color-amber)] transition-colors"
-        >
-          <span className="text-[10px] tracking-[0.32em] font-semibold">CALL</span>
-          <span className="text-[18px] md:text-[20px] tracking-[0.04em] tabular-nums">
-            (760) 995-3137
-          </span>
-        </a>
-      </FadeUp>
+    <section id="stations" className="relative bg-[var(--color-canvas)] py-24 md:py-32 overflow-hidden">
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
 
-      <div className="grid md:grid-cols-2">
-        <StationHalf
-          side="left"
-          label="STATION ONE"
-          city="HESPERIA"
-          address1="15555 Main St, Ste C1-2"
-          address2="Hesperia, CA 92345"
-          bgImage="/inside-club-bg.jpg"
-          directionsUrl="https://maps.google.com/?q=15555+Main+St+Hesperia+CA+92345"
-        />
-        <StationHalf
-          side="right"
-          label="STATION TWO"
-          city="LA VERNE"
-          address1="1473 Foothill Boulevard"
-          address2="La Verne, CA 91750"
-          bgImage="/inside-club-bg.jpg"
-          directionsUrl="https://maps.google.com/?q=1473+Foothill+Boulevard+La+Verne+CA+91750"
-        />
+        <FadeUp className="text-center mb-16 md:mb-20">
+          <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-4">
+            CALL · (760) 995-3137
+          </div>
+          <div className="text-[var(--color-off-white)]/55 font-light text-[13px] tracking-[0.18em]">
+            ONE MEMBERSHIP · BOTH STATIONS
+          </div>
+        </FadeUp>
+
+        {/* Two separate boxes — generous gap between */}
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16">
+          <StationCard
+            label="STATION ONE"
+            city="HESPERIA"
+            address1="15555 Main St, Ste C1-2"
+            address2="Hesperia, CA 92345"
+            bgImage="/hesperia-station.jpg"
+            bgMotion="zoom"
+            directionsUrl="https://maps.google.com/?q=15555+Main+St+Hesperia+CA+92345"
+          />
+          <StationCard
+            label="STATION TWO"
+            city="LA VERNE"
+            address1="1473 Foothill Boulevard"
+            address2="La Verne, CA 91750"
+            bgImage="/laverne-station.jpg"
+            bgMotion="drift"
+            directionsUrl="https://maps.google.com/?q=1473+Foothill+Boulevard+La+Verne+CA+91750"
+          />
+        </div>
       </div>
     </section>
   );

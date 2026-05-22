@@ -1,7 +1,6 @@
 "use client";
 
 import { FadeUp } from "./motion/FadeUp";
-import { KenBurns } from "./motion/KenBurns";
 
 export function Marine() {
   return (
@@ -9,14 +8,15 @@ export function Marine() {
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-12 md:gap-20 items-center">
 
-          {/* Portrait — Ken Burns scales as you scroll past */}
-          <KenBurns fromScale={1.05} toScale={1.22} className="relative w-full aspect-[4/5] bg-[var(--color-carbon)]">
+          {/* Portrait — continuous slow zoom via CSS */}
+          <div className="relative w-full aspect-[4/5] bg-[var(--color-carbon)] overflow-hidden">
             <div
-              className="absolute inset-0 bg-cover bg-center"
+              className="absolute inset-0 bg-cover bg-center photo-zoom"
               style={{ backgroundImage: "url('/armando-portrait.jpg')" }}
             />
+            {/* SVG fallback silhouette beneath the photo */}
             <svg
-              className="absolute inset-0 w-full h-full opacity-90"
+              className="absolute inset-0 w-full h-full opacity-90 -z-0"
               viewBox="0 0 400 500"
               preserveAspectRatio="xMidYMid slice"
             >
@@ -40,7 +40,7 @@ export function Marine() {
                   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.4'/></svg>\")",
               }}
             />
-          </KenBurns>
+          </div>
 
           <div>
             <FadeUp duration={1.1}>

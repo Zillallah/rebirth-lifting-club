@@ -32,3 +32,28 @@ html, body {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+/* APPEND THESE to your existing src/app/globals.css */
+
+@keyframes slowZoom {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.16); }
+}
+
+@keyframes slowDrift {
+  0%   { transform: translateX(-3%) scale(1.08); }
+  100% { transform: translateX(3%) scale(1.12); }
+}
+
+.photo-zoom {
+  animation: slowZoom 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.photo-drift {
+  animation: slowDrift 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-zoom, .photo-drift { animation: none; }
+}

@@ -18,7 +18,7 @@ export function ThePass() {
   };
 
   return (
-    <section id="the-pass" className="relative bg-[var(--color-carbon)] py-32 md:py-44 overflow-hidden">
+    <section id="the-pass" className="relative bg-[var(--color-carbon)] py-32 md:py-44 overflow-hidden border-t border-[var(--color-steel)]/30">
       <div className="w-full max-w-[760px] mx-auto px-6 md:px-12">
 
         {submitted ? (
@@ -43,32 +43,12 @@ export function ThePass() {
 
             <FadeUp delay={0.15} duration={1.0}>
               <form onSubmit={handleSubmit} className="space-y-10">
-                <Field
-                  label="NAME"
-                  name="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(v) => setFormData({ ...formData, name: v })}
-                />
-                <Field
-                  label="EMAIL"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(v) => setFormData({ ...formData, email: v })}
-                />
-                <Field
-                  label="PHONE"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(v) => setFormData({ ...formData, phone: v })}
-                />
+                <Field label="NAME" name="name" type="text" value={formData.name} onChange={(v) => setFormData({ ...formData, name: v })} />
+                <Field label="EMAIL" name="email" type="email" value={formData.email} onChange={(v) => setFormData({ ...formData, email: v })} />
+                <Field label="PHONE" name="phone" type="tel" value={formData.phone} onChange={(v) => setFormData({ ...formData, phone: v })} />
 
                 <div>
-                  <div className="text-[var(--color-off-white)]/65 font-medium text-[10px] tracking-[0.32em] mb-4">
-                    STATION
-                  </div>
+                  <div className="text-[var(--color-off-white)]/65 font-medium text-[10px] tracking-[0.32em] mb-4">STATION</div>
                   <div className="grid grid-cols-2 gap-3">
                     {["HESPERIA", "LA VERNE"].map((s) => (
                       <button
@@ -103,13 +83,7 @@ export function ThePass() {
   );
 }
 
-type FieldProps = {
-  label: string;
-  name: string;
-  type: string;
-  value: string;
-  onChange: (v: string) => void;
-};
+type FieldProps = { label: string; name: string; type: string; value: string; onChange: (v: string) => void };
 
 function Field({ label, name, type, value, onChange }: FieldProps) {
   return (

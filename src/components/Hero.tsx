@@ -28,14 +28,12 @@ export function Hero() {
         <LiveClock variant="nav" />
       </header>
 
-      {/* REBIRTH stays static — confident, doesn't animate in */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-6">
         <h1 className="font-extrabold text-[var(--color-off-white)] leading-[0.82] tracking-[-0.06em] text-center select-none">
           <span className="block text-[clamp(90px,18vw,280px)]">REBIRTH</span>
         </h1>
       </div>
 
-      {/* Bottom row fades up subtly on load */}
       <FadeUp delay={0.4} duration={1.4} className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-10 md:pb-14 z-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="text-[var(--color-off-white)]/55 font-medium text-[10px] tracking-[0.32em]">
