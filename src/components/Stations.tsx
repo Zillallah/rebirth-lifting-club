@@ -1,107 +1,88 @@
 "use client";
 
-import { Reveal, SlideIn } from "./motion";
-import { LiveStatus } from "./LiveStatus";
-
-type StationCardProps = {
+type StationProps = {
   label: string;
   city: string;
-  address: string;
-  zipline: string;
-  phone: string;
-  mapsQuery: string;
+  address1: string;
+  address2: string;
+  bgImage: string;
   directionsUrl: string;
 };
 
-function StationCard({ label, city, address, zipline, phone, mapsQuery, directionsUrl }: StationCardProps) {
-  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(mapsQuery)}&output=embed&z=15`;
+function StationHalf({ label, city, address1, address2, bgImage, directionsUrl }: StationProps) {
   return (
-    <div className="bg-[var(--color-canvas)] border border-[var(--color-steel)]/40 p-10 md:p-12 hover:border-[var(--color-amber)]/60 hover:-translate-y-1 transition-all duration-500">
-      <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-5">
-        {label}
-      </div>
-      <h3 className="font-extrabold text-[48px] md:text-[64px] leading-[1] tracking-[-0.025em] text-[var(--color-off-white)] mb-8">
-        {city}
-      </h3>
+    <a
+      href={directionsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block aspect-[4/5] md:aspect-auto md:min-h-[680px] overflow-hidden"
+    >
+      {/* Image background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+        style={{ backgroundImage: `url('${bgImage}')` }}
+      />
+      {/* Dark fallback if image missing */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0C]/40 via-transparent to-[#050505]/95" />
+      <div className="absolute inset-0 bg-[var(--color-canvas)]/30 group-hover:bg-[var(--color-canvas)]/10 transition-colors duration-500" />
 
-      <div className="space-y-4 mb-10">
-        <div className="text-[var(--color-off-white)]/90 font-light text-[15px] leading-[1.55]">
-          {address}<br />
-          {zipline}
+      {/* Top-left label */}
+      <div className="absolute top-8 left-8 md:top-10 md:left-10">
+        <div className="text-[var(--color-amber)] font-semibold text-[10px] md:text-[11px] tracking-[0.32em]">
+          {label}
         </div>
-        <a href={`tel:${phone.replace(/[^0-9]/g, "")}`} className="block text-[var(--color-amber)] font-bold text-[15px] tracking-[0.04em] hover:underline">
-          {phone}
-        </a>
-        <div className="pt-3"><LiveStatus /></div>
       </div>
 
-      <div className="relative aspect-[16/10] border border-[var(--color-steel)]/30 overflow-hidden mb-8">
-        <iframe
-          src={embedUrl}
-          width="100%" height="100%"
-          style={{ border: 0, filter: "grayscale(0.4) brightness(0.85)" }}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title={`${city} location map`}
-        />
+      {/* Bottom — city + address */}
+      <div className="absolute bottom-8 left-8 right-8 md:bottom-10 md:left-10 md:right-10">
+        <h3 className="font-extrabold text-[56px] sm:text-[72px] md:text-[96px] lg:text-[112px] leading-[0.9] tracking-[-0.035em] text-[var(--color-off-white)] mb-5">
+          {city}
+        </h3>
+        <div className="font-light text-[14px] md:text-[15px] leading-[1.55] text-[var(--color-off-white)]/80">
+          {address1}<br />{address2}
+        </div>
+        <div className="mt-6 inline-flex items-center gap-3 text-[var(--color-amber)] font-bold text-[11px] md:text-[12px] tracking-[0.22em] border-b border-[var(--color-amber)]/0 group-hover:border-[var(--color-amber)] pb-1 transition-all duration-300">
+          GET DIRECTIONS
+          <span className="text-[16px] transition-transform group-hover:translate-x-1">→</span>
+        </div>
       </div>
-
-      <a
-        href={directionsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-3 px-7 py-3.5 border-[1.5px] border-[var(--color-amber)] text-[var(--color-amber)] font-bold text-[12px] tracking-[0.22em] hover:bg-[var(--color-amber)] hover:text-[var(--color-canvas)] transition-all duration-300"
-      >
-        GET DIRECTIONS <span className="text-[16px]">→</span>
-      </a>
-    </div>
+    </a>
   );
 }
 
 export function Stations() {
   return (
-    <section id="stations" className="relative bg-[var(--color-carbon)] z-50 overflow-hidden py-20 md:py-28">
-      <div className="relative w-full max-w-[1280px] mx-auto px-6 md:px-12">
-        <Reveal>
-          <div className="text-[var(--color-amber)] font-semibold text-[12px] tracking-[0.32em] mb-8">
-            005 / STATIONS
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="font-extrabold text-[44px] md:text-[72px] lg:text-[88px] leading-[1.0] tracking-[-0.025em] text-[var(--color-off-white)] mb-8">
-            Two stations. <span className="text-[var(--color-amber)]">One standard.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="font-light text-[16px] md:text-[18px] text-[var(--color-off-white)]/65 max-w-[640px] mb-20 md:mb-28 leading-[1.6]">
-            Both clubs open 24 hours. Both staffed 24 hours. One membership covers both.
-          </p>
-        </Reveal>
+    <section id="stations" className="relative bg-[var(--color-canvas)] overflow-hidden">
+      {/* Phone whisper, centered, above the two halves */}
+      <div className="text-center py-10 md:py-14">
+        <a
+          href="tel:+17609953137"
+          className="inline-flex items-baseline gap-4 font-mono text-[var(--color-off-white)]/55 hover:text-[var(--color-amber)] transition-colors"
+        >
+          <span className="text-[10px] tracking-[0.32em] font-semibold">CALL</span>
+          <span className="text-[18px] md:text-[20px] tracking-[0.04em] tabular-nums">
+            (760) 995-3137
+          </span>
+        </a>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10">
-          <SlideIn direction="left" distance={150} duration={1.1}>
-            <StationCard
-              label="STATION ONE"
-              city="HESPERIA"
-              address="15555 Main St, Ste C1-2"
-              zipline="Hesperia, CA 92345"
-              phone="(760) 995-3137"
-              mapsQuery="15555 Main St, Hesperia, CA 92345"
-              directionsUrl="https://maps.google.com/?q=15555+Main+St+Hesperia+CA+92345"
-            />
-          </SlideIn>
-          <SlideIn direction="right" distance={150} delay={0.15} duration={1.1}>
-            <StationCard
-              label="STATION TWO"
-              city="LA VERNE"
-              address="1473 Foothill Boulevard"
-              zipline="La Verne, CA 91750"
-              phone="(760) 995-3137"
-              mapsQuery="1473 Foothill Boulevard, La Verne, CA 91750"
-              directionsUrl="https://maps.google.com/?q=1473+Foothill+Boulevard+La+Verne+CA+91750"
-            />
-          </SlideIn>
-        </div>
+      <div className="grid md:grid-cols-2">
+        <StationHalf
+          label="STATION ONE"
+          city="HESPERIA"
+          address1="15555 Main St, Ste C1-2"
+          address2="Hesperia, CA 92345"
+          bgImage="/inside-club-bg.jpg"
+          directionsUrl="https://maps.google.com/?q=15555+Main+St+Hesperia+CA+92345"
+        />
+        <StationHalf
+          label="STATION TWO"
+          city="LA VERNE"
+          address1="1473 Foothill Boulevard"
+          address2="La Verne, CA 91750"
+          bgImage="/inside-club-bg.jpg"
+          directionsUrl="https://maps.google.com/?q=1473+Foothill+Boulevard+La+Verne+CA+91750"
+        />
       </div>
     </section>
   );
