@@ -43,9 +43,10 @@ export function PhotoGallery() {
               className="relative aspect-square overflow-hidden border border-[var(--color-steel)]/30 hover:border-[var(--color-amber)]/50 transition-colors duration-500 group"
             >
               <div
+                role="img"
+                aria-label={cell.alt}
                 className={`absolute inset-0 bg-cover bg-center ${cell.motion}`}
                 style={{ backgroundImage: `url('${cell.src}')`, filter: "brightness(0.85)" }}
-                aria-label={cell.alt}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/85 pointer-events-none" />
               <div className="absolute inset-0 bg-[var(--color-canvas)]/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
