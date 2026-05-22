@@ -5,7 +5,7 @@ import { CtaBreak } from "@/components/CtaBreak";
 import { Manifest } from "@/components/Manifest";
 import { PhotoDivider } from "@/components/PhotoDivider";
 import { Stations } from "@/components/Stations";
-import { InstagramGallery } from "@/components/InstagramGallery";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { ThePass } from "@/components/ThePass";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -19,7 +19,7 @@ export default function Home() {
       <Manifest />
       <PhotoDivider />
       <Stations />
-      <InstagramGallery />
+      <PhotoGallery />
       <ThePass />
       <SiteFooter />
     </main>

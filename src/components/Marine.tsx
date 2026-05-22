@@ -8,13 +8,11 @@ export function Marine() {
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-12 md:gap-20 items-center">
 
-          {/* Portrait — continuous slow zoom via CSS */}
           <div className="relative w-full aspect-[4/5] bg-[var(--color-carbon)] overflow-hidden">
             <div
               className="absolute inset-0 bg-cover bg-center photo-zoom"
               style={{ backgroundImage: "url('/armando-portrait.jpg')" }}
             />
-            {/* SVG fallback silhouette beneath the photo */}
             <svg
               className="absolute inset-0 w-full h-full opacity-90 -z-0"
               viewBox="0 0 400 500"
@@ -28,10 +26,7 @@ export function Marine() {
               </defs>
               <rect width="400" height="500" fill="url(#marine-light)" />
               <circle cx="200" cy="190" r="68" fill="#050505" />
-              <path
-                d="M 60 500 L 60 380 Q 60 290 200 290 Q 340 290 340 380 L 340 500 Z"
-                fill="#050505"
-              />
+              <path d="M 60 500 L 60 380 Q 60 290 200 290 Q 340 290 340 380 L 340 500 Z" fill="#050505" />
             </svg>
             <div
               className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
