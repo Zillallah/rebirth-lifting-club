@@ -39,13 +39,13 @@ export function Marine() {
 
           <div>
             <FadeUp duration={1.1}>
-              <h2 className="font-extrabold text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] leading-[0.95] tracking-[-0.035em] text-[var(--color-off-white)] mb-10">
+              <h2 className="display text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] leading-[0.95] tracking-[-0.02em] text-[var(--color-off-white)] mb-10">
                 Built by a Marine.
               </h2>
             </FadeUp>
 
             <FadeUp delay={0.2} duration={1.0}>
-              <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-12">
+              <div className="text-[var(--color-coral)] font-semibold text-[11px] tracking-[0.32em] mb-12">
                 ARMANDO · USMC 0331 · MACHINE GUNNER
               </div>
             </FadeUp>

@@ -7,7 +7,7 @@ const ITEMS = [
   "Two stations. One membership.",
   "Real equipment. Real platforms. Not a circuit gym.",
   "4.7 stars across 260 reviews.",
-  "$30.99 a month. Or $35.99 with no contract.",
+  "Veteran-owned. Family-operated.",
 ];
 
 const ITEM_CLASS =
@@ -22,7 +22,7 @@ export function Manifest() {
         <ul className="space-y-12 md:space-y-16">
           {ITEMS.map((line, i) => {
             const num = (
-              <span className="font-extrabold text-[48px] md:text-[80px] leading-[0.9] text-[var(--color-amber)] tabular-nums">
+              <span className="font-extrabold text-[48px] md:text-[80px] leading-[0.9] text-[var(--color-coral)] tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
             );

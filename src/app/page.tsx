@@ -3,25 +3,33 @@ import { AmberDivider } from "@/components/AmberDivider";
 import { Marine } from "@/components/Marine";
 import { CtaBreak } from "@/components/CtaBreak";
 import { Manifest } from "@/components/Manifest";
+import { InsideTheClub } from "@/components/InsideTheClub";
 import { PhotoDivider } from "@/components/PhotoDivider";
 import { Stations } from "@/components/Stations";
-import { PhotoGallery } from "@/components/PhotoGallery";
+import { Membership } from "@/components/Membership";
+import { Reviews } from "@/components/Reviews";
+import { FAQ } from "@/components/FAQ";
+import { Doctrine } from "@/components/Doctrine";
 import { ThePass } from "@/components/ThePass";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export default function Home() {
   return (
-    <main className="bg-[var(--color-canvas)]">
+    <div className="bg-[var(--color-canvas)]">
       <Hero />
-      <AmberDivider headline="24/7" tagline="OPEN · STAFFED · EVERY HOUR · EVERY DAY" />
+      <AmberDivider />
       <Marine />
       <CtaBreak />
       <Manifest />
+      <InsideTheClub />
       <PhotoDivider />
       <Stations />
-      <PhotoGallery />
+      <Membership />
+      <Reviews />
+      <FAQ />
+      <Doctrine />
       <ThePass />
       <SiteFooter />
-    </main>
+    </div>
   );
 }

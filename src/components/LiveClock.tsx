@@ -16,7 +16,6 @@ export function LiveClock({ variant = "nav" }: LiveClockProps) {
   }, []);
 
   if (!now) {
-    // SSR placeholder — same dimensions, invisible to prevent layout shift
     return (
       <div className="inline-flex items-center gap-3 text-[var(--color-off-white)]/0">
         <span>STAFFED</span>
@@ -36,8 +35,8 @@ export function LiveClock({ variant = "nav" }: LiveClockProps) {
     return (
       <div className="inline-flex items-baseline gap-3 font-mono text-[var(--color-off-white)]">
         <span className="relative flex h-2 w-2 self-center">
-          <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--color-amber)] opacity-75 animate-ping" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-amber)]" />
+          <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--color-coral)] opacity-75 animate-ping" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-coral)]" />
         </span>
         <span className="text-[11px] tracking-[0.32em] font-semibold">STAFFED</span>
         <span className="text-[14px] tracking-[0.08em] tabular-nums">{timeStr}</span>
@@ -45,12 +44,11 @@ export function LiveClock({ variant = "nav" }: LiveClockProps) {
     );
   }
 
-  // nav variant
   return (
     <div className="inline-flex items-baseline gap-3 font-mono">
       <span className="relative flex h-2 w-2 self-center">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--color-amber)] opacity-75 animate-ping" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-amber)]" />
+        <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--color-coral)] opacity-75 animate-ping" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-coral)]" />
       </span>
       <span className="text-[10px] tracking-[0.32em] font-semibold text-[var(--color-off-white)]">STAFFED</span>
       <span className="text-[12px] tracking-[0.08em] tabular-nums text-[var(--color-off-white)]">{timeStr}</span>

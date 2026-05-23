@@ -14,10 +14,10 @@ export function PhotoDivider() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(0,0,0,0.55)_100%)] pointer-events-none" />
 
       <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 z-10">
-        <div className="text-[var(--color-amber)] font-semibold text-[11px] tracking-[0.32em] mb-2">
+        <div className="text-[var(--color-coral)] font-semibold text-[11px] tracking-[0.32em] mb-2">
           INSIDE THE CLUB
         </div>
-        <div className="font-extrabold text-[28px] md:text-[40px] leading-[1] tracking-[-0.02em] text-[var(--color-off-white)] max-w-[600px]">
+        <div className="display text-[28px] md:text-[40px] leading-[1] tracking-[-0.02em] text-[var(--color-off-white)] max-w-[600px]">
           Power racks. Platforms. Real iron.
         </div>
       </div>
