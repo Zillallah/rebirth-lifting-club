@@ -1,53 +1,73 @@
 "use client";
 
-import { LiveClock } from "./LiveClock";
 import { FadeUp } from "./motion/FadeUp";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[var(--color-canvas)]">
+    <section className="relative h-[100svh] w-full overflow-hidden bg-[var(--color-canvas)]">
+      {/* Forge video bg — fallback to v4.1 hero.mp4 if /hero-forge.mp4 missing.
+          TODO [operator-verify]: Drop actual forge loop into /public/hero-forge.mp4. */}
       <video
         autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
         poster="/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source src="/hero.webm" type="video/webm" />
+        <source src="/hero-forge.mp4" type="video/mp4" />
         <source src="/hero.mp4" type="video/mp4" />
+        <source src="/hero.webm" type="video/webm" />
       </video>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80 z-[1] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(0,0,0,0.6)_100%)] z-[1] pointer-events-none" />
+      <div className="absolute inset-0 bg-[var(--color-canvas)]/55 z-[1] pointer-events-none" />
+      <div className="absolute inset-0 vignette z-[1] pointer-events-none" />
 
-      <header className="absolute top-0 left-0 right-0 px-6 md:px-12 py-7 flex items-center justify-between z-10">
-        <span className="font-extrabold text-[12px] md:text-[13px] tracking-[0.32em] text-[var(--color-off-white)]">
-          REBIRTH
-        </span>
-        <LiveClock variant="nav" />
-      </header>
-
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-6">
-        <h1 className="font-extrabold text-[var(--color-off-white)] leading-[0.82] tracking-[-0.06em] text-center select-none">
-          <span className="block text-[clamp(90px,18vw,280px)]">REBIRTH</span>
-        </h1>
+      <div className="absolute top-6 left-6 md:top-8 md:left-8 z-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/rebirth-logo.png"
+          alt="Rebirth Lifting Club"
+          className="h-12 w-auto md:h-14"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+        />
       </div>
 
-      <FadeUp delay={0.4} duration={1.4} className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-10 md:pb-14 z-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div className="text-[var(--color-off-white)]/55 font-medium text-[10px] tracking-[0.32em]">
-            HESPERIA · LA VERNE · CA
-          </div>
-          <a
-            href="#the-pass"
-            className="group inline-flex items-center gap-4 text-[var(--color-off-white)] font-bold text-[13px] md:text-[14px] tracking-[0.22em] border-b border-[var(--color-amber)] pb-2 hover:text-[var(--color-amber)] transition-colors duration-300"
+      <div className="absolute inset-0 flex items-center justify-center z-10 px-6">
+        <div className="w-full max-w-[1200px]">
+          <FadeUp delay={120} as="h1" className="display hero-headline text-[var(--color-off)]">
+            Real gym.
+          </FadeUp>
+          <FadeUp
+            delay={280}
+            as="div"
+            className="display hero-headline text-[var(--color-off)] pl-[1.2em]"
           >
-            BOOK A 3-DAY PASS
-            <span className="text-[18px] transition-transform group-hover:translate-x-1">→</span>
-          </a>
+            Real work.
+          </FadeUp>
+
+          <FadeUp delay={440} className="mt-8">
+            <p className="eyebrow text-[var(--color-coral)]">
+              Open &amp; Staffed 24/7
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={600} className="mt-8">
+            <a
+              href="#lead-form"
+              className="inline-flex items-center justify-center h-14 px-8 bg-[var(--color-coral)] text-[var(--color-off)] font-semibold text-sm tracking-[0.18em] uppercase rounded-full transition-[filter] duration-200 hover:brightness-110"
+            >
+              Claim Free Session
+            </a>
+          </FadeUp>
         </div>
-      </FadeUp>
+      </div>
+
+      <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-3 z-10 text-[var(--color-coral)] text-[10px] tracking-[0.32em] uppercase">
+        <span className="block w-px h-8 bg-[var(--color-coral)]" />
+        <span>Scroll</span>
+      </div>
     </section>
   );
 }

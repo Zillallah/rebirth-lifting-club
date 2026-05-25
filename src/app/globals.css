@@ -3,57 +3,86 @@
 @theme {
   --color-canvas: #050505;
   --color-carbon: #0E0E10;
-  --color-carbon-2: #1A1A1C;
-  --color-off-white: #F4EFE6;
-  --color-off-white-2: #C9C4BC;
-  --color-off-white-3: #7A7771;
-  --color-amber: #F4A024;
-  --color-amber-deep: #C77F12;
-  --color-steel: #3A3A3D;
+  --color-off:    #F4EFE6;
+  --color-coral:  #E55A40;
+  --color-amber:  #F4A024;
+  --color-steel:  #3A3A3D;
 
-  --font-display: var(--font-outfit), system-ui, sans-serif;
-  --font-body: var(--font-outfit), system-ui, sans-serif;
+  /* next/font sets --font-fraunces / --font-outfit on <html> via
+     layout.tsx; @theme aliases them to semantic display/body tokens.
+     Never name next/font variables --font-display / --font-body
+     directly — that creates a circular var() reference. */
+  --font-display: var(--font-fraunces);
+  --font-body:    var(--font-outfit);
+
+  --shadow-glow: 0 0 32px rgba(244, 160, 36, 0.18);
 }
 
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.6; transform: scale(0.85); }
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--color-canvas);
+    color: var(--color-off);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  ::selection {
+    background: var(--color-coral);
+    color: var(--color-canvas);
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-coral);
+  }
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 2.2s ease-in-out infinite;
-}
+@layer utilities {
+  .hero-headline    { font-size: clamp(3.25rem, 12vw, 11rem); }
+  .section-opener   { font-size: clamp(2.25rem, 7vw, 6rem); }
+  .station-name     { font-size: clamp(3.5rem, 14vw, 12rem); }
+  .doctrine-close   { font-size: clamp(3rem, 10vw, 9rem); }
 
-html, body {
-  background-color: var(--color-canvas);
-  color: var(--color-off-white);
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-/* APPEND THESE to your existing src/app/globals.css */
-
-@keyframes slowZoom {
-  0%   { transform: scale(1.0); }
-  100% { transform: scale(1.16); }
-}
-
-@keyframes slowDrift {
-  0%   { transform: translateX(-3%) scale(1.08); }
-  100% { transform: translateX(3%) scale(1.12); }
-}
-
-.photo-zoom {
-  animation: slowZoom 22s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.photo-drift {
-  animation: slowDrift 28s ease-in-out infinite alternate;
-  will-change: transform;
+  .vignette {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(5, 5, 5, 0.45) 80%,
+      rgba(5, 5, 5, 0.65) 100%
+    );
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .photo-zoom, .photo-drift { animation: none; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
