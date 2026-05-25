@@ -38,7 +38,7 @@ export function FromTheAshes() {
           <div className="relative aspect-[4/5] grid grid-cols-6 grid-rows-6 gap-3">
             <ParallaxImage
               src="/stills/gym-01.jpg"
-              alt="Inside Rebirth — wide floor view"
+              alt="Inside Rebirth — Rogue bumper plates"
               width={800}
               height={1000}
               depth={0.3}
@@ -47,7 +47,7 @@ export function FromTheAshes() {
             />
             <ParallaxImage
               src="/stills/gym-02.jpg"
-              alt="Inside Rebirth — rack detail"
+              alt="Inside Rebirth — squat rack"
               width={600}
               height={800}
               depth={0.6}
@@ -56,7 +56,7 @@ export function FromTheAshes() {
             />
             <ParallaxImage
               src="/stills/gym-03.jpg"
-              alt="Inside Rebirth — platform"
+              alt="Inside Rebirth — cardio floor"
               width={600}
               height={600}
               depth={1.0}

@@ -62,7 +62,7 @@
 @layer utilities {
   .hero-headline    { font-size: clamp(3.25rem, 12vw, 11rem); }
   .section-opener   { font-size: clamp(2.25rem, 7vw, 6rem); }
-  .station-name     { font-size: clamp(3.5rem, 14vw, 12rem); }
+  .station-name     { font-size: clamp(2.5rem, 9vw, 7.5rem); }
   .doctrine-close   { font-size: clamp(3rem, 10vw, 9rem); }
 
   .vignette {

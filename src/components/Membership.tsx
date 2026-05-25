@@ -272,6 +272,7 @@ function PriceLine({
   index: number;
   inView: boolean;
 }) {
+  const isPrice = amount.startsWith('$');
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -279,10 +280,17 @@ function PriceLine({
       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
       className="flex items-baseline justify-center gap-2 flex-wrap"
     >
-      <span className="font-display italic text-coral text-5xl md:text-6xl leading-none tracking-tight">
+      <span
+        className={cn(
+          'font-display italic text-coral leading-none tracking-tight',
+          isPrice ? 'text-5xl md:text-6xl' : 'text-3xl md:text-4xl',
+        )}
+      >
         {amount}
       </span>
-      <span className="font-body text-off text-base md:text-lg">a month,</span>
+      {isPrice && (
+        <span className="font-body text-off text-base md:text-lg">a month,</span>
+      )}
       <span className="font-body text-coral text-xs md:text-sm tracking-widest uppercase font-semibold">
         {label}
       </span>

@@ -16,7 +16,7 @@ export function Hero() {
         poster="/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source src="/hero-forge.mp4" type="video/mp4" />
+        <source src="/hero-architectural.mp4" type="video/mp4" />
         <source src="/hero.mp4" type="video/mp4" />
         <source src="/hero.webm" type="video/webm" />
       </video>
