@@ -1,27 +1,33 @@
 import { Hero } from "@/components/Hero";
-import { AmberDivider } from "@/components/AmberDivider";
-import { Marine } from "@/components/Marine";
-import { CtaBreak } from "@/components/CtaBreak";
-import { Manifest } from "@/components/Manifest";
-import { PhotoDivider } from "@/components/PhotoDivider";
+import { FromTheAshes } from "@/components/FromTheAshes";
+import { InsideTheClub } from "@/components/InsideTheClub";
 import { Stations } from "@/components/Stations";
-import { PhotoGallery } from "@/components/PhotoGallery";
-import { ThePass } from "@/components/ThePass";
-import { SiteFooter } from "@/components/SiteFooter";
+import { Membership } from "@/components/Membership";
+import { CustomTraining } from "@/components/CustomTraining";
+import { Reviews } from "@/components/Reviews";
+import { FAQ } from "@/components/FAQ";
+import { LeadForm } from "@/components/LeadForm";
+import { Doctrine } from "@/components/Doctrine";
+import { Footer } from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
 
 export default function Home() {
   return (
-    <main className="bg-[var(--color-canvas)]">
+    <>
       <Hero />
-      <AmberDivider headline="24/7" tagline="OPEN · STAFFED · EVERY HOUR · EVERY DAY" />
-      <Marine />
-      <CtaBreak />
-      <Manifest />
-      <PhotoDivider />
+      <FromTheAshes />
+      <SectionDivider />
+      <InsideTheClub />
+      <SectionDivider />
       <Stations />
-      <PhotoGallery />
-      <ThePass />
-      <SiteFooter />
-    </main>
+      <SectionDivider />
+      <Membership />
+      <CustomTraining />
+      <Reviews />
+      <FAQ />
+      <LeadForm />
+      <Doctrine />
+      <Footer />
+    </>
   );
 }

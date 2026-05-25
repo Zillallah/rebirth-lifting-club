@@ -1,28 +1,42 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-type FadeUpProps = {
+type Props = {
   children: ReactNode;
   delay?: number;
-  duration?: number;
-  y?: number;
   className?: string;
+  as?: "div" | "span" | "p" | "h1" | "h2" | "h3";
 };
 
-export function FadeUp({ children, delay = 0, duration = 1.0, y = 32, className = "" }: FadeUpProps) {
+export function FadeUp({
+  children,
+  delay = 0,
+  className,
+  as = "div",
+}: Props) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const MotionTag = motion[as];
+
+  if (reduce) {
+    const Tag = as;
+    return <Tag className={className}>{children}</Tag>;
+  }
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
+    <MotionTag
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: delay / 1000,
+      }}
+      className={className}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   );
 }
