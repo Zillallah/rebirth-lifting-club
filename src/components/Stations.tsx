@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
 type Half = {
@@ -37,7 +37,7 @@ const halves: Half[] = [
   },
 ];
 
-function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
+function StationHalf({ half }: { half: Half }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-150px" });
   const reduce = useReducedMotion();
@@ -57,22 +57,18 @@ function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
         playsInline
         preload="metadata"
         poster={half.poster}
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       >
         <source src={half.videoSrc} type="video/mp4" />
         <source src={half.videoFallback} type="video/mp4" />
       </video>
 
       <div
-        className="absolute inset-0 z-[1] transition-[background-color] duration-[240ms]"
-        style={{
-          backgroundColor: hovered
-            ? "rgba(5,5,5,0.55)"
-            : "rgba(5,5,5,0.65)",
-        }}
+        aria-hidden
+        className="absolute inset-0 z-[1] bg-canvas/65 group-hover:bg-canvas/35 transition-colors duration-500"
       />
 
-      {/* Station name — upper third */}
+      {/* Station name + underline — upper third */}
       <div className="relative z-10 h-full flex flex-col items-center pt-[18vh] px-6 md:px-12">
         <motion.span
           initial={nameInitial}
@@ -82,6 +78,10 @@ function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
         >
           {half.name.toUpperCase()}
         </motion.span>
+        <span
+          aria-hidden="true"
+          className="block h-[3px] bg-coral mt-4 mx-auto transition-all duration-500 ease-out w-0 group-hover:w-24"
+        />
       </div>
 
       {/* Address backdrop band — bottom */}
@@ -89,7 +89,7 @@ function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
         initial={bandInitial}
         animate={bandAnimate}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-        className="absolute bottom-[8vh] left-1/2 -translate-x-1/2 w-[88%] max-w-md bg-[color-mix(in_srgb,var(--color-canvas)_85%,transparent)] backdrop-blur-sm rounded-lg px-6 py-5 text-center z-10"
+        className="absolute bottom-[8vh] left-1/2 -translate-x-1/2 w-[88%] max-w-md bg-canvas/85 backdrop-blur-sm rounded-lg px-6 py-5 text-center border border-transparent group-hover:border-coral/70 group-hover:shadow-[0_12px_40px_rgba(229,90,64,0.35)] transition-all duration-400 z-10"
       >
         <p className="text-[var(--color-off)] text-base md:text-lg font-semibold tracking-[0.18em] uppercase">
           {half.addressLine}
@@ -101,15 +101,9 @@ function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
           href={half.directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group/cta mt-4 inline-flex items-center gap-2 text-[var(--color-coral)] text-sm tracking-[0.18em] uppercase font-semibold"
+          className="inline-block mt-4 px-6 py-3 bg-coral text-off font-semibold uppercase tracking-wider rounded-full transition-all duration-200 group-hover:scale-[1.04] group-hover:shadow-[0_8px_28px_rgba(229,90,64,0.55)]"
         >
           Choose this station
-          <span
-            aria-hidden
-            className="inline-block transition-transform duration-200 group-hover/cta:translate-x-2"
-          >
-            →
-          </span>
         </a>
       </motion.div>
     </div>
@@ -117,8 +111,6 @@ function StationHalf({ half, hovered }: { half: Half; hovered: boolean }) {
 }
 
 export function Stations() {
-  const [hovered, setHovered] = useState<number | null>(null);
-
   return (
     <section
       id="stations"
@@ -130,27 +122,24 @@ export function Stations() {
           className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[var(--color-coral)] z-20 pointer-events-none"
           aria-hidden
         />
-        {halves.map((half, i) => (
-          <button
+        {halves.map((half) => (
+          <div
             key={half.name}
-            type="button"
-            className="relative block w-full h-full text-left cursor-default"
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            onFocus={() => setHovered(i)}
-            onBlur={() => setHovered(null)}
-            aria-label={`${half.name} station`}
+            className="group relative w-full h-full overflow-hidden cursor-pointer"
           >
-            <StationHalf half={half} hovered={hovered === i} />
-          </button>
+            <StationHalf half={half} />
+          </div>
         ))}
       </div>
 
       {/* Mobile: stacked vertical mini-sections */}
       <div className="md:hidden flex flex-col">
         {halves.map((half) => (
-          <div key={half.name} className="relative w-full h-[70svh]">
-            <StationHalf half={half} hovered />
+          <div
+            key={half.name}
+            className="group relative w-full h-[70svh] overflow-hidden cursor-pointer"
+          >
+            <StationHalf half={half} />
           </div>
         ))}
       </div>

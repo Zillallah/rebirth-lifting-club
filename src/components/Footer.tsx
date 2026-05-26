@@ -1,3 +1,5 @@
+"use client";
+
 export function Footer() {
   return (
     <footer className="bg-[var(--color-canvas)] py-24 border-t border-[var(--color-steel)]/40">
