@@ -1,19 +1,7 @@
-"use client";
-
 export function Footer() {
   return (
     <footer className="bg-[var(--color-canvas)] py-24 border-t border-[var(--color-steel)]/40">
       <div className="mx-auto max-w-[1400px] px-6 md:px-12">
-        {/* Brand / Logo */}
-        <div className="flex justify-center md:justify-start mb-6">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/rebirth-logo.png"
-            alt="Rebirth Lifting Club"
-            className="h-16 md:h-20 w-auto object-contain opacity-95"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-          />
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 text-[var(--color-off)]">
           <div className="space-y-3">

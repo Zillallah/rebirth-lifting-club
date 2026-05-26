@@ -9,6 +9,7 @@ import { FAQ } from "@/components/FAQ";
 import { LeadForm } from "@/components/LeadForm";
 import { Doctrine } from "@/components/Doctrine";
 import { Footer } from "@/components/Footer";
+import FooterBrand from "@/components/FooterBrand";
 import SectionDivider from "@/components/SectionDivider";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       <FAQ />
       <LeadForm />
       <Doctrine />
+      <FooterBrand />
       <Footer />
     </>
   );
