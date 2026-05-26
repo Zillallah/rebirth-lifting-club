@@ -63,10 +63,7 @@ function StationHalf({ half }: { half: Half }) {
         <source src={half.videoFallback} type="video/mp4" />
       </video>
 
-      <div
-        aria-hidden
-        className="absolute inset-0 z-[1] bg-canvas/65 group-hover:bg-canvas/35 transition-colors duration-500"
-      />
+      <div className="absolute inset-0 bg-canvas/65 group-hover:bg-canvas/35 transition-colors duration-500" />
 
       {/* Station name + underline — upper third */}
       <div className="relative z-10 h-full flex flex-col items-center pt-[18vh] px-6 md:px-12">
